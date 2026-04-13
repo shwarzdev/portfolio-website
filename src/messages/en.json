@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "about": "About",
+    "projects": "Projects",
+    "stack": "Tech Stack",
+    "testimonials": "Reviews",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hey, I'm",
+    "name": "shwarzdev",
+    "title": "Full-Stack Developer",
+    "description": "I build web apps, Telegram bots, AI tools, and everything in between. If it can be coded, I probably build it.",
+    "cta_projects": "View Projects",
+    "cta_contact": "Contact Me"
+  },
+  "about": {
+    "heading": "About Me",
+    "bio": "Full-stack developer with 2+ years of experience building web applications, AI integrations, Telegram bots and Mini Apps, REST APIs, and SaaS products. I work across the entire stack — from React frontends to Python/Node backends with PostgreSQL, Redis, and Docker deployments.",
+    "stats": {
+      "projects": "16+",
+      "projects_label": "Projects Built",
+      "stack": "Full-Stack",
+      "stack_label": "End to End",
+      "languages": "4",
+      "languages_label": "Languages Spoken"
+    }
+  },
+  "projects": {
+    "heading": "Projects",
+    "subtitle": "A selection of things I've built",
+    "filter_all": "All",
+    "filter_telegram": "Telegram & Bots",
+    "filter_web": "Web Apps & SaaS",
+    "filter_ai": "AI / ML",
+    "filter_tools": "Tools & Other",
+    "private_code": "Private Code",
+    "view_github": "GitHub",
+    "view_live": "Live",
+    "sonoria_title": "Sonoria",
+    "sonoria_desc": "Full music streaming platform as a Telegram Mini App. Three panels: app, admin dashboard, advertiser cabinet. Ad system with targeting, Premium via Telegram Stars, PWA + APK. 13 languages. Built solo from scratch.",
+    "fortune_title": "Fortune Wheel Bot",
+    "fortune_desc": "Viral marketing Telegram bot with Mini App. Users spin a fortune wheel to win real coupons, invite friends via referrals, create mirror bots. Full admin panel with coupon management and push notifications.",
+    "livechat_title": "LiveChat AI",
+    "livechat_desc": "Real-time chat application with AI bot. Multiple rooms, online presence, typing indicators. Mention @ai to get instant responses powered by Groq.",
+    "quill_title": "Quill AI",
+    "quill_desc": "Writing assistant SaaS. AI-powered rewriting, expanding, summarizing. Auth with email + GitHub OAuth, credit system, auto-save.",
+    "ecommerce_title": "E-commerce API",
+    "ecommerce_desc": "Production-ready REST API with JWT auth, role-based access, products, orders, stock management, search with filters. Docker Compose ready.",
+    "doc_assistant_title": "AI Document Assistant",
+    "doc_assistant_desc": "Chat with PDF/DOCX/TXT files. RAG pipeline with vector embeddings, semantic search, answers with page citations.",
+    "snip_title": "Snip URL Shortener",
+    "snip_desc": "SaaS URL shortener with dashboard and click analytics. GitHub OAuth authentication, link management.",
+    "shopify_title": "Shopify Telegram Bot",
+    "shopify_desc": "Real-time order notifications, low stock alerts, daily sales reports from Shopify. Auto webhook registration.",
+    "expense_title": "AI Expense Bot",
+    "expense_desc": "Telegram bot that tracks expenses via natural language. GPT parses messages like 'spent 40 on dinner' into categorized records.",
+    "crypto_title": "Crypto Alert Bot",
+    "crypto_desc": "Telegram bot for crypto price tracking. Set target price alerts, portfolio tracker. Checks every 60 seconds via CoinGecko API.",
+    "support_title": "AI Support Bot",
+    "support_desc": "Customer support chatbot using embeddings + cosine similarity. Reads FAQ from text files, logs unanswered queries.",
+    "price_title": "Price Tracker",
+    "price_desc": "Monitors product prices on websites via CSS selectors. Sends Telegram alerts when price drops. History tracking.",
+    "budget_title": "Budget Mini App",
+    "budget_desc": "Budget tracker as a Telegram Mini App. Expense categories, per-user data, web UI running inside Telegram.",
+    "clipper_title": "Web Clipper Extension",
+    "clipper_desc": "Chrome/Edge browser extension. Clip selected text or full pages directly to Telegram via context menu.",
+    "workflow_title": "Workflow Automator",
+    "workflow_desc": "Watches folders for CSV/Excel files, parses with pandas, sends summary stats to Telegram. Auto-archive.",
+    "landings_title": "Landing Pages",
+    "landings_desc": "6 responsive landing pages: AI SaaS, Crypto Exchange, E-commerce, Fitness App, Food Delivery, Web Agency. Built from scratch with HTML/CSS/JS."
+  },
+  "techStack": {
+    "heading": "Tech Stack",
+    "subtitle": "Technologies I work with daily"
+  },
+  "testimonials": {
+    "heading": "Testimonials",
+    "subtitle": "What clients say about working with me",
+    "t1_name": "Andrey T.",
+    "t1_role": "Startup Founder",
+    "t1_text": "Built our Telegram bot with fortune wheel Mini App from scratch in under a week. Admin panel, coupon system, referrals, mirror bots, everything works. Great communication, always available and responsive.",
+    "t1_date": "March 15, 2026",
+    "t2_name": "Sergey V.",
+    "t2_role": "E-commerce Owner",
+    "t2_text": "Needed Shopify integration with Telegram for order notifications and daily sales reports. Delivered exactly what I asked for, clean code, well documented. Even added features I didn't think of. Highly recommend.",
+    "t2_date": "February 28, 2026",
+    "t3_name": "Olga M.",
+    "t3_role": "Marketing Manager",
+    "t3_text": "Ordered a landing page for our AI product. Result exceeded expectations, modern design, fast loading, fully responsive. Understood the brief immediately and delivered ahead of schedule.",
+    "t3_date": "January 10, 2026",
+    "t4_name": "Nikita K.",
+    "t4_role": "Product Manager",
+    "t4_text": "Ordered an internal dashboard with REST API and PostgreSQL. Professional approach, solid architecture decisions, database design was spot on. Project delivered on time and on budget."
+  },
+  "contact": {
+    "heading": "Let's Work Together",
+    "description": "Got a project in mind? I'm open to freelance work, contract positions, and interesting collaborations.",
+    "telegram": "Message on Telegram",
+    "github": "View GitHub"
+  },
+  "footer": {
+    "built_with": "Built with Next.js & Tailwind CSS",
+    "copyright": "\u00a9 2026 All rights reserved."
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "about": "Обо мне",
+    "projects": "Проекты",
+    "stack": "Стек",
+    "testimonials": "Отзывы",
+    "contact": "Контакт"
+  },
+  "hero": {
+    "greeting": "Привет, я",
+    "name": "shwarzdev",
+    "title": "Full-Stack Разработчик",
+    "description": "Делаю веб-приложения, Telegram ботов, AI инструменты и всё что между ними. Если это можно закодить — я скорее всего это делаю.",
+    "cta_projects": "Проекты",
+    "cta_contact": "Связаться"
+  },
+  "about": {
+    "heading": "Обо мне",
+    "bio": "Full-stack разработчик с 2+ годами опыта. Создаю веб-приложения, AI интеграции, Telegram ботов и Mini App, REST API и SaaS продукты. Работаю по всему стеку — от React фронтендов до Python/Node бэкендов с PostgreSQL, Redis и Docker.",
+    "stats": {
+      "projects": "16+",
+      "projects_label": "Проектов",
+      "stack": "Full-Stack",
+      "stack_label": "Под ключ",
+      "languages": "4",
+      "languages_label": "Языка"
+    }
+  },
+  "projects": {
+    "heading": "Проекты",
+    "subtitle": "Подборка того, что я построил",
+    "filter_all": "Все",
+    "filter_telegram": "Telegram и Боты",
+    "filter_web": "Веб и SaaS",
+    "filter_ai": "AI / ML",
+    "filter_tools": "Инструменты",
+    "private_code": "Код закрыт",
+    "view_github": "GitHub",
+    "view_live": "Открыть",
+    "sonoria_title": "Sonoria",
+    "sonoria_desc": "Полноценный музыкальный стриминг в Telegram Mini App. Три панели: приложение, админка, кабинет рекламодателя. Рекламная система с таргетингом, Premium через Telegram Stars, PWA + APK. 13 языков. Сделал один с нуля.",
+    "fortune_title": "Fortune Wheel Bot",
+    "fortune_desc": "Вирусный маркетинговый Telegram бот с Mini App. Колесо фортуны с реальными купонами, рефералы, зеркальные боты. Полная админ панель с управлением купонами и пуш уведомлениями.",
+    "livechat_title": "LiveChat AI",
+    "livechat_desc": "Чат в реальном времени с AI ботом. Комнаты, онлайн статус, индикаторы набора текста. Напиши @ai чтобы получить мгновенный ответ через Groq.",
+    "quill_title": "Quill AI",
+    "quill_desc": "SaaS для написания текстов. AI переписывание, расширение, суммаризация. Авторизация email + GitHub OAuth, система кредитов, автосохранение.",
+    "ecommerce_title": "E-commerce API",
+    "ecommerce_desc": "Продакшн REST API с JWT авторизацией, ролями, товарами, заказами, управлением стоком, поиском с фильтрами. Docker Compose.",
+    "doc_assistant_title": "AI Document Assistant",
+    "doc_assistant_desc": "Чат с PDF/DOCX/TXT файлами. RAG пайплайн с векторными эмбеддингами, семантический поиск, ответы с цитатами страниц.",
+    "snip_title": "Snip URL Shortener",
+    "snip_desc": "SaaS сокращатель ссылок с дашбордом и аналитикой кликов. GitHub OAuth авторизация.",
+    "shopify_title": "Shopify Telegram Bot",
+    "shopify_desc": "Уведомления о заказах, алерты о низком стоке, ежедневные отчёты по продажам из Shopify.",
+    "expense_title": "AI Expense Bot",
+    "expense_desc": "Telegram бот для трекинга расходов через естественный язык. GPT парсит сообщения типа 'потратил 40 на ужин' в категоризированные записи.",
+    "crypto_title": "Crypto Alert Bot",
+    "crypto_desc": "Telegram бот для отслеживания цен криптовалют. Алерты по целевой цене, трекер портфеля. Проверка каждые 60 секунд через CoinGecko.",
+    "support_title": "AI Support Bot",
+    "support_desc": "Чатбот поддержки на эмбеддингах + cosine similarity. Читает FAQ из текстовых файлов, логирует неотвеченные вопросы.",
+    "price_title": "Price Tracker",
+    "price_desc": "Мониторинг цен на товары через CSS селекторы. Telegram алерты при снижении цены. История изменений.",
+    "budget_title": "Budget Mini App",
+    "budget_desc": "Бюджет трекер как Telegram Mini App. Категории расходов, данные по пользователям, веб UI внутри Telegram.",
+    "clipper_title": "Web Clipper Extension",
+    "clipper_desc": "Расширение для Chrome/Edge. Сохранение выделенного текста или целых страниц прямо в Telegram через контекстное меню.",
+    "workflow_title": "Workflow Automator",
+    "workflow_desc": "Следит за папкой, парсит CSV/Excel через pandas, отправляет статистику в Telegram. Автоархивация.",
+    "landings_title": "Лендинги",
+    "landings_desc": "6 адаптивных лендингов: AI SaaS, Крипто Биржа, Интернет-магазин, Фитнес приложение, Доставка еды, Веб-агентство. С нуля на HTML/CSS/JS."
+  },
+  "techStack": {
+    "heading": "Стек технологий",
+    "subtitle": "Технологии с которыми работаю каждый день"
+  },
+  "testimonials": {
+    "heading": "Отзывы",
+    "subtitle": "Что говорят клиенты о работе со мной",
+    "t1_name": "Андрей Т.",
+    "t1_role": "Основатель стартапа",
+    "t1_text": "Собрал Telegram бота с Mini App (колесо фортуны) с нуля меньше чем за неделю. Админ панель, купоны, реферальная система, зеркальные боты, все работает. Коммуникация отличная, всегда на связи.",
+    "t1_date": "15 марта 2026",
+    "t2_name": "Сергей В.",
+    "t2_role": "Владелец интернет-магазина",
+    "t2_text": "Заказывал интеграцию Shopify с Telegram для уведомлений о заказах и ежедневных отчетов. Сделано ровно то что нужно, чистый код, все задокументировано. Даже добавил фичи о которых я не подумал. Рекомендую.",
+    "t2_date": "28 февраля 2026",
+    "t3_name": "Ольга М.",
+    "t3_role": "Маркетинг менеджер",
+    "t3_text": "Заказали лендинг для AI продукта. Результат превзошел ожидания, современный дизайн, быстрая загрузка, полностью адаптивный. Сразу понял задачу и сдал раньше срока.",
+    "t3_date": "10 января 2026",
+    "t4_name": "Никита К.",
+    "t4_role": "Продакт менеджер",
+    "t4_text": "Заказывали внутренний дашборд с REST API. Профессиональный подход, хорошие архитектурные решения, грамотно спроектирована база данных. Проект сдан вовремя и в бюджет."
+  },
+  "contact": {
+    "heading": "Давайте работать вместе",
+    "description": "Есть проект? Открыт к фрилансу, контрактной работе и интересным коллаборациям.",
+    "telegram": "Написать в Telegram",
+    "github": "Открыть GitHub"
+  },
+  "footer": {
+    "built_with": "Сделано на Next.js и Tailwind CSS",
+    "copyright": "\u00a9 2026 All rights reserved."
+  }
+}
