@@ -52,18 +52,6 @@ export const projects: readonly Project[] = [
     isFeatured: true,
   },
   {
-    id: 4,
-    slug: "quill-ai",
-    titleKey: "quill_title",
-    descriptionKey: "quill_desc",
-    category: "web",
-    techTags: ["Next.js", "TypeScript", "Tailwind", "OpenAI API", "Prisma", "PostgreSQL"],
-    image: "/images/projects/quill-ai.png",
-    github: "https://github.com/shwarzdev/quill-ai",
-    isPrivate: false,
-    isFeatured: true,
-  },
-  {
     id: 5,
     slug: "ecommerce-api",
     titleKey: "ecommerce_title",
