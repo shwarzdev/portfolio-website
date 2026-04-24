@@ -67,8 +67,18 @@
     "clipper_desc": "Chrome/Edge browser extension. Clip selected text or full pages directly to Telegram via context menu.",
     "workflow_title": "Workflow Automator",
     "workflow_desc": "Watches folders for CSV/Excel files, parses with pandas, sends summary stats to Telegram. Auto-archive.",
-    "landings_title": "Landing Pages",
-    "landings_desc": "6 responsive landing pages: AI SaaS, Crypto Exchange, E-commerce, Fitness App, Food Delivery, Web Agency. Built from scratch with HTML/CSS/JS."
+    "landing_ai_saas_title": "Quill AI — Landing",
+    "landing_ai_saas_desc": "SaaS landing for an AI writing assistant. Hero with product mockup, features grid, pricing, testimonials. Responsive.",
+    "landing_crypto_title": "NexTrade — Crypto Exchange",
+    "landing_crypto_desc": "Dark fintech landing with canvas particle background, live market table, animated stats. Made for a crypto trading platform.",
+    "landing_ecommerce_title": "MNML WEAR — E-commerce",
+    "landing_ecommerce_desc": "Premium streetwear e-commerce landing with product cards, wishlist, cart badge. Minimalist black and white aesthetic.",
+    "landing_fitness_title": "FitPulse — Fitness App",
+    "landing_fitness_desc": "Mobile fitness app landing with CSS phone mockup, workout cards, stats, progress charts. Fiery orange and black theme.",
+    "landing_food_title": "Dashly — Food Delivery",
+    "landing_food_desc": "Food delivery landing with CSS scooter illustration, draggable restaurant cards, category filters. Warm orange and cream palette.",
+    "landing_agency_title": "Void Studio — Agency",
+    "landing_agency_desc": "Creative agency landing. Minimal black and white with custom cursor, smooth scroll animations, acid green accent."
   },
   "techStack": {
     "heading": "Tech Stack",
