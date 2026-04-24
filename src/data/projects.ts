@@ -35,6 +35,7 @@ export const projects: readonly Project[] = [
     category: "telegram",
     techTags: ["React", "Node.js", "PostgreSQL", "Telegram Bot API", "Mini App"],
     image: "/images/projects/fortune-wheel.png",
+    live: "https://t.me/CasinoThreeDragonsBot",
     isPrivate: true,
     isFeatured: true,
   },
