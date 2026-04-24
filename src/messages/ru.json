@@ -29,6 +29,7 @@
   "projects": {
     "heading": "Проекты",
     "subtitle": "Подборка того, что я построил",
+    "demo_notice": "Демо для ознакомления — некоторые проекты упрощены для портфолио",
     "filter_all": "Все",
     "filter_telegram": "Telegram и Боты",
     "filter_web": "Веб и SaaS",

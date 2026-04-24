@@ -29,6 +29,7 @@
   "projects": {
     "heading": "Projects",
     "subtitle": "A selection of things I've built",
+    "demo_notice": "Showcase demos — some projects are simplified versions for portfolio display",
     "filter_all": "All",
     "filter_telegram": "Telegram & Bots",
     "filter_web": "Web Apps & SaaS",

@@ -35,6 +35,27 @@ export default function Projects() {
           <SectionHeading title={t("heading")} subtitle={t("subtitle")} />
         </AnimatedSection>
 
+        <AnimatedSection delay={0.05}>
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 text-xs text-violet-300">
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{t("demo_notice")}</span>
+            </div>
+          </div>
+        </AnimatedSection>
+
         <AnimatedSection delay={0.1}>
           <CategoryFilter
             filters={filters}
