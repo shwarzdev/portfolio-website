@@ -59,7 +59,7 @@ export default function Hero() {
             <span className="text-term-purple">{"/**"}</span>
           </p>
           <p className="text-fg-dim pl-3">
-            <span className="text-term-purple">{"*"}</span> {t("greeting")}, I&apos;m a <span className="text-term-yellow">{t("title")}</span>.
+            <span className="text-term-purple">{"*"}</span> {t("greeting")} <span className="text-term-yellow">{t("title")}</span>.
           </p>
           <p className="text-fg-dim pl-3">
             <span className="text-term-purple">{"*"}</span> {t("description")}
