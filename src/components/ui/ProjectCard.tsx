@@ -14,6 +14,13 @@ interface ProjectCardProps {
   liveLabel: string;
 }
 
+const CATEGORY_COLOR: Record<string, string> = {
+  telegram: "text-term-cyan",
+  web: "text-term-purple",
+  ai: "text-term-green",
+  tools: "text-term-yellow",
+};
+
 export default function ProjectCard({
   project,
   index,
@@ -23,132 +30,169 @@ export default function ProjectCard({
   githubLabel,
   liveLabel,
 }: ProjectCardProps) {
+  const [expanded, setExpanded] = useState(false);
   const [imgFailed, setImgFailed] = useState(false);
   const hasImage = Boolean(project.image) && !imgFailed;
   const hasLive = Boolean(project.live);
   const hasGithub = Boolean(project.github);
-  const isReversed = index % 2 === 1;
-
-  const categoryLabel = project.category.toUpperCase();
+  const catColor = CATEGORY_COLOR[project.category] ?? "text-fg-dim";
 
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.4 }}
-      className="group border-t border-ink/20 py-10 md:py-14 first:border-t-0 first:pt-2"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="border-b border-line last:border-b-0 hover:bg-surface/50 transition-colors"
     >
-      <div className={`grid grid-cols-12 gap-x-6 gap-y-6 ${isReversed ? "md:[direction:rtl]" : ""}`}>
-        {/* Number + meta */}
-        <div className="col-span-12 md:col-span-2 md:[direction:ltr]">
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted mb-2">
-            № {String(index + 1).padStart(2, "0")}
-          </div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
-            {categoryLabel}
-          </div>
+      {/* Row */}
+      <button
+        onClick={() => setExpanded((v) => !v)}
+        className="w-full text-left px-4 py-3 grid grid-cols-12 gap-x-3 items-start md:items-center"
+      >
+        {/* Number */}
+        <span className="col-span-1 text-xs text-fg-muted font-medium hidden md:block">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        {/* Name + category */}
+        <div className="col-span-12 md:col-span-3 flex items-center gap-2 mb-1 md:mb-0">
+          <span className="md:hidden text-xs text-fg-muted">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className={`text-xs ${catColor}`}>●</span>
+          <span className="text-fg text-sm font-medium truncate">{title}</span>
           {project.isPrivate && (
-            <div className="mt-3 inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted border border-ink/30 px-2 py-1">
-              {privateLabel}
-            </div>
+            <span className="text-[9px] uppercase tracking-wider text-fg-muted border border-fg-subtle px-1.5 py-0.5 shrink-0">
+              private
+            </span>
           )}
         </div>
 
-        {/* Image */}
-        {hasImage && (
-          <div className="col-span-12 md:col-span-5 md:[direction:ltr]">
-            {hasLive ? (
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block relative overflow-hidden border border-ink/15 bg-cream-200 group/img"
-                aria-label={`${liveLabel}: ${title}`}
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={project.image}
-                    alt={title}
-                    className="w-full h-full object-cover object-top group-hover/img:scale-[1.03] transition-transform duration-700"
-                    onError={() => setImgFailed(true)}
-                  />
-                </div>
-              </a>
-            ) : (
-              <div className="relative overflow-hidden border border-ink/15 bg-cream-200">
-                <div className="aspect-[4/3] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={project.image}
-                    alt={title}
-                    className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-700"
-                    onError={() => setImgFailed(true)}
-                  />
-                </div>
+        {/* Description */}
+        <span className="col-span-12 md:col-span-5 text-xs text-fg-dim line-clamp-1 mb-1 md:mb-0">
+          {description}
+        </span>
+
+        {/* Tech tags (compact) */}
+        <span className="col-span-12 md:col-span-2 text-[10px] text-fg-muted truncate mb-1 md:mb-0">
+          {project.techTags.slice(0, 3).join(" · ")}
+        </span>
+
+        {/* Expand */}
+        <span className={`col-span-12 md:col-span-1 text-right text-xs text-fg-muted transition-transform ${expanded ? "rotate-90" : ""}`}>
+          →
+        </span>
+      </button>
+
+      {/* Expanded content */}
+      {expanded && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.2 }}
+          className="overflow-hidden border-t border-line bg-surface/30"
+        >
+          <div className="grid grid-cols-12 gap-x-6 gap-y-4 px-4 py-5 md:py-6">
+            {/* Image / preview */}
+            {hasImage && (
+              <div className="col-span-12 md:col-span-6">
+                {hasLive ? (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block border border-line hover:border-term-green transition-colors overflow-hidden"
+                  >
+                    <div className="aspect-[16/10] overflow-hidden bg-bg">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={project.image}
+                        alt={title}
+                        className="w-full h-full object-cover object-top"
+                        onError={() => setImgFailed(true)}
+                      />
+                    </div>
+                  </a>
+                ) : (
+                  <div className="border border-line overflow-hidden">
+                    <div className="aspect-[16/10] overflow-hidden bg-bg">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={project.image}
+                        alt={title}
+                        className="w-full h-full object-cover object-top"
+                        onError={() => setImgFailed(true)}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             )}
-          </div>
-        )}
 
-        {/* Text content */}
-        <div
-          className={`col-span-12 ${
-            hasImage ? "md:col-span-5" : "md:col-span-10"
-          } md:[direction:ltr] flex flex-col justify-between`}
-        >
-          <div>
-            <h3
-              className="serif-display text-3xl md:text-4xl lg:text-5xl font-light leading-[1.05] tracking-tighter text-ink mb-4 text-balance"
-              style={{ fontVariationSettings: '"opsz" 96' }}
-            >
-              {title}
-            </h3>
+            {/* Details */}
+            <div className={`col-span-12 ${hasImage ? "md:col-span-6" : "md:col-span-10 md:col-start-2"} flex flex-col`}>
+              {/* Description */}
+              <p className="text-sm text-fg leading-relaxed mb-4">
+                {description}
+              </p>
 
-            <p className="serif-text text-base md:text-lg text-ink/80 leading-relaxed max-w-prose mb-6 text-balance">
-              {description}
-            </p>
+              {/* Tech tags full */}
+              <div className="mb-4">
+                <div className="text-[10px] uppercase tracking-wider text-fg-muted mb-2">stack</div>
+                <div className="flex flex-wrap gap-x-2 gap-y-1">
+                  {project.techTags.map((tag, i) => (
+                    <span key={tag} className="text-xs text-fg-dim">
+                      {i > 0 && <span className="text-fg-subtle mr-2">·</span>}
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-            <div className="flex flex-wrap gap-x-4 gap-y-1.5 mb-8 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted">
-              {project.techTags.map((tag, i) => (
-                <span key={tag} className="flex items-center gap-2">
-                  {i > 0 && <span className="text-ink/20">·</span>}
-                  {tag}
-                </span>
-              ))}
+              {/* Meta */}
+              <div className="mb-5">
+                <div className="text-[10px] uppercase tracking-wider text-fg-muted mb-2">category</div>
+                <span className={`text-xs ${catColor}`}>{project.category}</span>
+              </div>
+
+              {/* Actions */}
+              <div className="mt-auto flex flex-wrap gap-2 pt-3 border-t border-line">
+                {hasLive && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 text-xs bg-term-green/10 border border-term-green text-term-green hover:bg-term-green hover:text-bg transition-colors"
+                  >
+                    <span>$ open</span>
+                    <span>{liveLabel}</span>
+                    <span>↗</span>
+                  </a>
+                )}
+                {hasGithub && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 text-xs border border-line text-fg-dim hover:border-fg hover:text-fg transition-colors"
+                  >
+                    <span>$ git clone</span>
+                    <span>{githubLabel}</span>
+                  </a>
+                )}
+                {project.isPrivate && !hasLive && !hasGithub && (
+                  <span className="inline-block px-3 py-1.5 text-xs border border-line text-fg-muted">
+                    {privateLabel}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
-
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-4 border-t border-ink/10">
-            {hasLive && (
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="serif-text italic text-lg md:text-xl text-ink hover:text-accent transition-colors underline decoration-1 underline-offset-3 inline-flex items-center gap-2"
-              >
-                {liveLabel}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M7 17L17 7" />
-                  <path d="M7 7h10v10" />
-                </svg>
-              </a>
-            )}
-            {hasGithub && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted hover:text-ink transition-colors inline-flex items-center gap-2"
-              >
-                ↳ {githubLabel}
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
+        </motion.div>
+      )}
     </motion.article>
   );
 }

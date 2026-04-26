@@ -11,38 +11,61 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-cream-100/85 backdrop-blur-md border-b border-ink/10">
-      <nav className="max-w-[1400px] mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-bg/95 backdrop-blur-md border-b border-line">
+      {/* Top status bar */}
+      <div className="border-b border-line bg-surface">
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6 h-7 flex items-center justify-between text-[10px] text-fg-muted">
+          <div className="flex items-center gap-3">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-term-green animate-pulse" />
+              <span>READY</span>
+            </span>
+            <span className="text-fg-subtle hidden sm:inline">|</span>
+            <span className="hidden sm:inline">~/portfolio/shwarzdev</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="hidden md:inline">main</span>
+            <span className="text-fg-subtle hidden md:inline">|</span>
+            <span>v3.5.2</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main nav */}
+      <nav className="max-w-[1400px] mx-auto px-4 md:px-6 h-12 flex items-center justify-between">
         <a
           href="#"
-          className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink hover:text-accent transition-colors"
+          className="text-sm text-fg hover:text-term-green transition-colors flex items-center gap-2"
         >
-          shwarzdev<span className="text-ink-muted">.studio</span>
+          <span className="text-term-green">$</span>
+          <span className="font-medium">shwarzdev</span>
+          <span className="text-fg-muted text-xs">--portfolio</span>
         </a>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center">
           {NAV_ITEMS.map((item, idx) => (
             <a
               key={item.key}
               href={item.href}
-              className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted hover:text-accent transition-colors flex items-center gap-1.5"
+              className="px-3 py-1.5 text-xs text-fg-dim hover:text-term-green transition-colors flex items-center gap-1.5 border-r border-line first:border-l"
             >
-              <span className="text-ink/30">
+              <span className="text-fg-subtle">
                 {String(idx + 1).padStart(2, "0")}
               </span>
-              {t(item.key)}
+              <span>{t(item.key).toLowerCase()}</span>
             </a>
           ))}
-          <div className="h-4 w-px bg-ink/20" />
-          <LocaleSwitcher />
+          <div className="pl-4">
+            <LocaleSwitcher />
+          </div>
         </div>
 
         <button
           onClick={() => setMobileOpen((p) => !p)}
-          className="md:hidden text-ink p-2"
+          className="md:hidden text-fg p-2"
           aria-label="Toggle menu"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             {mobileOpen ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M3 12h18M3 6h18M3 18h18" />}
           </svg>
         </button>
@@ -54,21 +77,21 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-cream-100 border-b border-ink/10"
+            className="md:hidden overflow-hidden bg-surface border-b border-line"
           >
-            <div className="flex flex-col gap-1 px-6 py-6">
+            <div className="flex flex-col px-4 py-3">
               {NAV_ITEMS.map((item, idx) => (
                 <a
                   key={item.key}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="font-mono text-xs uppercase tracking-[0.16em] text-ink py-2 flex items-center gap-3"
+                  className="text-xs text-fg-dim hover:text-term-green py-2 flex items-center gap-3"
                 >
-                  <span className="text-ink/30">{String(idx + 1).padStart(2, "0")}</span>
-                  {t(item.key)}
+                  <span className="text-fg-subtle">{String(idx + 1).padStart(2, "0")}</span>
+                  <span>{t(item.key).toLowerCase()}</span>
                 </a>
               ))}
-              <div className="pt-3 mt-2 border-t border-ink/10">
+              <div className="pt-2 mt-2 border-t border-line">
                 <LocaleSwitcher />
               </div>
             </div>

@@ -5,6 +5,15 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { techStack, techCategories } from "@/data/tech-stack";
 
+const CATEGORY_COLOR: Record<string, string> = {
+  frontend: "text-term-cyan",
+  backend: "text-term-purple",
+  database: "text-term-green",
+  ai: "text-term-yellow",
+  bots: "text-term-blue",
+  devops: "text-term-orange",
+};
+
 export default function TechStack() {
   const t = useTranslations("techStack");
   const ref = useRef<HTMLDivElement>(null);
@@ -13,64 +22,77 @@ export default function TechStack() {
   return (
     <section
       id="stack"
-      className="py-24 md:py-32 px-6 md:px-10 border-t border-ink/20 bg-cream-50"
+      className="py-20 md:py-28 px-4 md:px-6 border-t border-line"
     >
       <div ref={ref} className="max-w-[1400px] mx-auto">
-        {/* Section header */}
-        <div className="grid grid-cols-12 gap-x-6 mb-16 md:mb-24">
-          <div className="col-span-12 md:col-span-2">
-            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
-              04 / Apparatus
+        {/* Section heading */}
+        <div className="flex flex-wrap items-center gap-3 mb-10">
+          <span className="text-term-green text-sm">▸</span>
+          <span className="text-xs text-fg-muted">04 / stack</span>
+          <span className="text-fg-subtle">—</span>
+          <span className="text-fg-dim text-sm">{t("subtitle").toLowerCase()}</span>
+          <div className="flex-1 h-px bg-line ml-2" />
+        </div>
+
+        {/* package.json style */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="code-block"
+        >
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-line">
+            <div className="flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-term-red" />
+              <div className="w-2.5 h-2.5 rounded-full bg-term-yellow" />
+              <div className="w-2.5 h-2.5 rounded-full bg-term-green" />
+            </div>
+            <span className="text-xs text-fg-muted ml-3">stack.json</span>
+          </div>
+
+          <div className="p-4 md:p-6 text-sm overflow-x-auto">
+            <div className="text-fg-dim">
+              <span className="text-fg-muted">{"{"}</span>
+            </div>
+
+            {techCategories.map((category, catIdx) => {
+              const items = techStack.filter((t) => t.category === category.key);
+              const colorClass = CATEGORY_COLOR[category.key] ?? "text-fg-dim";
+
+              return (
+                <motion.div
+                  key={category.key}
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.4, delay: catIdx * 0.05 }}
+                  className="pl-4 md:pl-6 my-1"
+                >
+                  <div className="flex flex-wrap items-baseline gap-1">
+                    <span className={`${colorClass}`}>&quot;{category.label.toLowerCase()}&quot;</span>
+                    <span className="text-fg-muted">:</span>
+                    <span className="text-fg-muted">[</span>
+                  </div>
+                  <div className="pl-4 md:pl-6 my-1">
+                    {items.map((tech, i) => (
+                      <span key={tech.name} className="text-fg">
+                        <span className="text-term-yellow">&quot;{tech.name}&quot;</span>
+                        {i < items.length - 1 && <span className="text-fg-muted">, </span>}
+                      </span>
+                    ))}
+                  </div>
+                  <div>
+                    <span className="text-fg-muted">]</span>
+                    {catIdx < techCategories.length - 1 && <span className="text-fg-muted">,</span>}
+                  </div>
+                </motion.div>
+              );
+            })}
+
+            <div className="text-fg-dim">
+              <span className="text-fg-muted">{"}"}</span>
             </div>
           </div>
-
-          <div className="col-span-12 md:col-span-10">
-            <h2
-              className="serif-display text-5xl md:text-7xl font-light leading-[0.95] tracking-tighter text-ink"
-              style={{ fontVariationSettings: '"opsz" 144' }}
-            >
-              {t("heading")}
-            </h2>
-            <p className="serif-text italic text-xl md:text-2xl text-ink-muted mt-4">
-              {t("subtitle")}.
-            </p>
-          </div>
-        </div>
-
-        {/* Index-style listing */}
-        <div className="grid grid-cols-12 gap-x-6 gap-y-12">
-          {techCategories.map((category, catIdx) => {
-            const items = techStack.filter((t) => t.category === category.key);
-            return (
-              <motion.div
-                key={category.key}
-                initial={{ opacity: 0, y: 16 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: catIdx * 0.06 }}
-                className="col-span-12 md:col-span-6 lg:col-span-4 border-t border-ink pt-4"
-              >
-                <div className="flex items-baseline justify-between mb-5">
-                  <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink">
-                    {String(catIdx + 1).padStart(2, "0")} · {category.label}
-                  </h3>
-                  <span className="font-mono text-[10px] text-ink-muted">
-                    {items.length}
-                  </span>
-                </div>
-                <ul className="space-y-1.5">
-                  {items.map((tech) => (
-                    <li
-                      key={tech.name}
-                      className="serif-text text-lg md:text-xl text-ink leading-snug"
-                    >
-                      {tech.name}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            );
-          })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

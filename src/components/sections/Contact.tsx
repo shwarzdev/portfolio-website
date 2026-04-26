@@ -13,85 +13,87 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-24 md:py-40 px-6 md:px-10 border-t border-ink/20 bg-ink text-cream-100"
+      className="py-20 md:py-32 px-4 md:px-6 border-t border-line"
     >
       <div ref={ref} className="max-w-[1400px] mx-auto">
-        {/* Section header */}
-        <div className="grid grid-cols-12 gap-x-6 mb-16">
-          <div className="col-span-12 md:col-span-2">
-            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent-light">
-              06 / Correspondence
-            </div>
-          </div>
-
-          <div className="col-span-12 md:col-span-10">
-            <h2
-              className="serif-display text-6xl md:text-8xl lg:text-[10rem] font-light leading-[0.9] tracking-tightest text-cream-100 text-balance"
-              style={{ fontVariationSettings: '"opsz" 144' }}
-            >
-              {t("heading")}
-            </h2>
-          </div>
+        {/* Section heading */}
+        <div className="flex flex-wrap items-center gap-3 mb-10">
+          <span className="text-term-green text-sm">▸</span>
+          <span className="text-xs text-fg-muted">06 / connect</span>
+          <span className="text-fg-subtle">—</span>
+          <span className="text-fg-dim text-sm">{t("heading").toLowerCase()}</span>
+          <div className="flex-1 h-px bg-line ml-2" />
         </div>
 
-        {/* Description and links */}
-        <div className="grid grid-cols-12 gap-x-6 gap-y-12 mt-16 md:mt-24">
-          <div className="col-span-12 md:col-span-5 md:col-start-3">
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="serif-text text-xl md:text-2xl leading-relaxed text-cream-100/85 text-balance"
-            >
-              {t("description")}
-            </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="code-block max-w-3xl"
+        >
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-line">
+            <div className="flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-term-red" />
+              <div className="w-2.5 h-2.5 rounded-full bg-term-yellow" />
+              <div className="w-2.5 h-2.5 rounded-full bg-term-green" />
+            </div>
+            <span className="text-xs text-fg-muted ml-3">~/contact</span>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="col-span-12 md:col-span-4 md:col-start-9"
-          >
-            <div className="space-y-1 border-t border-cream-100/30 pt-4">
-              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-cream-100/50 mb-3">
-                ↳ Reach out
+          <div className="p-6 md:p-8 space-y-5 text-sm md:text-base">
+            {/* Welcome line */}
+            <div>
+              <span className="text-term-green">$</span>{" "}
+              <span className="text-fg">echo</span>{" "}
+              <span className="text-term-yellow">&quot;{t("heading")}&quot;</span>
+            </div>
+
+            <p className="text-fg-dim leading-relaxed pl-3 border-l border-line">
+              {t("description")}
+            </p>
+
+            {/* Available commands */}
+            <div className="pt-3 space-y-3">
+              <div>
+                <div className="text-xs text-fg-muted mb-2"># available channels</div>
               </div>
+
               <a
                 href={TELEGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-baseline justify-between py-3 border-b border-cream-100/20 hover:border-accent-light transition-colors"
+                className="group flex items-center justify-between gap-3 px-4 py-3 border border-line hover:border-term-green transition-colors"
               >
-                <span
-                  className="serif-display text-3xl md:text-4xl font-light text-cream-100 group-hover:text-accent-light transition-colors"
-                  style={{ fontVariationSettings: '"opsz" 96' }}
-                >
-                  {t("telegram")}
+                <span>
+                  <span className="text-term-green">$</span>{" "}
+                  <span className="text-fg">telegram</span>{" "}
+                  <span className="text-term-cyan">--message</span>{" "}
+                  <span className="text-term-yellow">@shwarzdev</span>
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-cream-100/40">
-                  ↗
-                </span>
+                <span className="text-fg-muted text-xs group-hover:text-term-green transition-colors">↗</span>
               </a>
+
               <a
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-baseline justify-between py-3 border-b border-cream-100/20 hover:border-accent-light transition-colors"
+                className="group flex items-center justify-between gap-3 px-4 py-3 border border-line hover:border-term-green transition-colors"
               >
-                <span
-                  className="serif-display text-3xl md:text-4xl font-light text-cream-100 group-hover:text-accent-light transition-colors"
-                  style={{ fontVariationSettings: '"opsz" 96' }}
-                >
-                  {t("github")}
+                <span>
+                  <span className="text-term-green">$</span>{" "}
+                  <span className="text-fg">github</span>{" "}
+                  <span className="text-term-cyan">--profile</span>{" "}
+                  <span className="text-term-yellow">shwarzdev</span>
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-cream-100/40">
-                  ↗
-                </span>
+                <span className="text-fg-muted text-xs group-hover:text-term-green transition-colors">↗</span>
               </a>
             </div>
-          </motion.div>
-        </div>
+
+            <div className="pt-3 text-xs text-fg-muted">
+              <span className="text-term-green">$</span> exit 0
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -20,22 +20,24 @@ export default function LocaleSwitcher() {
   }
 
   return (
-    <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em]">
+    <div className="flex items-center text-xs">
+      <span className="text-fg-subtle">[</span>
       {routing.locales.map((loc, i) => (
-        <span key={loc} className="flex items-center gap-2">
-          {i > 0 && <span className="text-ink/20">/</span>}
+        <span key={loc} className="flex items-center">
+          {i > 0 && <span className="text-fg-subtle px-1">|</span>}
           <button
             onClick={() => switchLocale(loc)}
-            className={`transition-colors ${
+            className={`transition-colors uppercase ${
               locale === loc
-                ? "text-accent"
-                : "text-ink-muted hover:text-ink"
+                ? "text-term-green"
+                : "text-fg-muted hover:text-fg"
             }`}
           >
             {loc}
           </button>
         </span>
       ))}
+      <span className="text-fg-subtle">]</span>
     </div>
   );
 }

@@ -1,122 +1,124 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 export default function Hero() {
   const t = useTranslations("hero");
-  const today = new Date()
-    .toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
-    })
-    .toUpperCase();
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const update = () => {
+      const d = new Date();
+      const h = String(d.getUTCHours()).padStart(2, "0");
+      const m = String(d.getUTCMinutes()).padStart(2, "0");
+      const s = String(d.getUTCSeconds()).padStart(2, "0");
+      setTime(`${h}:${m}:${s}`);
+    };
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
-    <section className="relative min-h-[92vh] pt-20 pb-24 px-6 md:px-10">
+    <section className="relative pt-12 md:pt-20 pb-24 px-4 md:px-6">
       <div className="max-w-[1400px] mx-auto">
-        {/* Top metadata bar */}
+        {/* Top run header */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted border-t border-ink py-3"
+          transition={{ duration: 0.4 }}
+          className="text-xs text-fg-muted mb-8 flex flex-wrap gap-x-4 gap-y-1"
         >
-          <span>Issue №01</span>
-          <span className="hidden sm:inline">Portfolio / 2026</span>
-          <span>{today}</span>
+          <span><span className="text-term-cyan">$</span> ./run.sh --intro</span>
+          <span className="text-fg-subtle">→</span>
+          <span>compiled in 0.42s</span>
+          <span className="text-fg-subtle">·</span>
+          <span>UTC {time || "00:00:00"}</span>
         </motion.div>
 
-        {/* Main hero */}
-        <div className="grid grid-cols-12 gap-x-6 gap-y-10 mt-16 md:mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="col-span-12 md:col-span-2"
+        {/* ASCII / Big name block */}
+        <motion.pre
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-fg leading-[0.95] text-[clamp(2.5rem,9vw,7rem)] font-bold tracking-tightest whitespace-pre overflow-x-auto"
+        >
+          <span className="text-term-green">&gt; </span>shwarzdev<span className="text-term-green cursor"></span>
+        </motion.pre>
+
+        {/* Comment-style description */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-8 max-w-2xl space-y-1 text-base"
+        >
+          <p className="text-fg-muted">
+            <span className="text-term-purple">{"/**"}</span>
+          </p>
+          <p className="text-fg-dim pl-3">
+            <span className="text-term-purple">{"*"}</span> {t("greeting")}, I&apos;m a <span className="text-term-yellow">{t("title")}</span>.
+          </p>
+          <p className="text-fg-dim pl-3">
+            <span className="text-term-purple">{"*"}</span> {t("description")}
+          </p>
+          <p className="text-fg-muted">
+            <span className="text-term-purple">{"*/"}</span>
+          </p>
+        </motion.div>
+
+        {/* Action commands */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-12 grid sm:grid-cols-2 gap-3 max-w-xl"
+        >
+          <a
+            href="#projects"
+            className="group code-block px-4 py-3 hover:border-term-green transition-colors flex items-center justify-between"
           >
-            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
-              ※ The Author
-            </div>
-          </motion.div>
+            <span className="text-sm">
+              <span className="text-term-green">$</span>{" "}
+              <span className="text-fg">cat</span>{" "}
+              <span className="text-term-cyan">./projects</span>
+            </span>
+            <span className="text-fg-muted text-xs group-hover:text-term-green transition-colors">↳</span>
+          </a>
 
-          <div className="col-span-12 md:col-span-10">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="serif-text italic text-xl md:text-2xl text-ink-muted mb-3"
-            >
-              {t("greeting")},
-            </motion.p>
+          <a
+            href="#contact"
+            className="group code-block px-4 py-3 hover:border-term-green transition-colors flex items-center justify-between"
+          >
+            <span className="text-sm">
+              <span className="text-term-green">$</span>{" "}
+              <span className="text-fg">connect</span>{" "}
+              <span className="text-term-cyan">--telegram</span>
+            </span>
+            <span className="text-fg-muted text-xs group-hover:text-term-green transition-colors">↳</span>
+          </a>
+        </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="serif-display font-light text-ink leading-[0.9] tracking-tightest text-[clamp(4rem,14vw,12rem)]"
-              style={{ fontVariationSettings: '"opsz" 144' }}
-            >
-              {t("name")}
-            </motion.h1>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-8 grid grid-cols-12 gap-x-6"
-            >
-              <div className="col-span-12 md:col-span-7 md:col-start-6">
-                <p className="serif-text text-xl md:text-2xl leading-snug text-ink text-balance">
-                  {t("title")}.{" "}
-                  <span className="italic text-ink-muted">
-                    {t("description")}
-                  </span>
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Bottom strip — call to actions like editorial footnotes */}
+        {/* Bottom info bar */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-24 md:mt-32 grid grid-cols-12 gap-x-6 items-end pt-6 border-t border-ink/30"
+          className="mt-16 md:mt-24 grid grid-cols-2 sm:grid-cols-4 gap-y-4 text-xs border-t border-line pt-4"
         >
-          <div className="col-span-12 md:col-span-6">
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted mb-2">
-              ↳ Begin reading
+          {[
+            ["status", "available", "term-green"],
+            ["tags", "fullstack · ai · bots", "term-cyan"],
+            ["uptime", "2+ yrs", "term-yellow"],
+            ["build", "passing", "term-green"],
+          ].map(([label, val, color]) => (
+            <div key={label} className="flex flex-col gap-1">
+              <span className="text-fg-muted">{label}</span>
+              <span className={`text-${color}`}>{val}</span>
             </div>
-            <div className="flex flex-wrap gap-x-6 gap-y-2">
-              <a
-                href="#projects"
-                className="serif-text italic text-2xl md:text-3xl text-ink hover:text-accent transition-colors underline decoration-1 underline-offset-3"
-              >
-                {t("cta_projects")}
-              </a>
-              <span className="serif-text italic text-2xl md:text-3xl text-ink-muted">
-                /
-              </span>
-              <a
-                href="#contact"
-                className="serif-text italic text-2xl md:text-3xl text-ink hover:text-accent transition-colors underline decoration-1 underline-offset-3"
-              >
-                {t("cta_contact")}
-              </a>
-            </div>
-          </div>
-
-          <div className="col-span-12 md:col-span-6 md:text-right">
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted mb-2">
-              ↳ Filed under
-            </div>
-            <div className="font-mono text-xs text-ink">
-              full-stack · ai · telegram · saas
-            </div>
-          </div>
+          ))}
         </motion.div>
       </div>
     </section>

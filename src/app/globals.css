@@ -13,58 +13,79 @@ html {
 }
 
 body {
-  background-color: #f4f1ea;
-  color: #0a0a0a;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: #0d0d0d;
+  color: #ededed;
+  font-family: var(--font-mono), Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.55;
   min-height: 100vh;
   overflow-x: hidden;
-  font-feature-settings: "ss01", "cv11";
+  font-feature-settings: "calt", "liga";
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 ::selection {
-  background-color: #c2410c;
-  color: #f4f1ea;
+  background-color: #7cf08e;
+  color: #0d0d0d;
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #ebe5d6;
+  background: #0d0d0d;
+  border-left: 1px solid #1f1f1f;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6b6258;
-  border-radius: 0;
+  background: #2a2a2a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
+
+/* Cursor blink */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor::after {
+  content: "▊";
+  display: inline-block;
+  margin-left: 4px;
+  color: #7cf08e;
+  animation: blink 1s step-end infinite;
+}
+
+/* Code block style */
+.code-block {
+  background-color: #141414;
+  border: 1px solid #1f1f1f;
+  font-family: var(--font-mono), Menlo, monospace;
 }
 
 @layer utilities {
-  .grid-lines {
-    background-image:
-      linear-gradient(to right, rgba(10, 10, 10, 0.04) 1px, transparent 1px);
-    background-size: calc(100% / 12) 100%;
-  }
-
   .text-balance {
     text-wrap: balance;
   }
 
-  .underline-offset-3 {
-    text-underline-offset: 0.25em;
+  .ascii-line {
+    background-image: repeating-linear-gradient(
+      to right,
+      currentColor 0,
+      currentColor 6px,
+      transparent 6px,
+      transparent 10px
+    );
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    background-position: bottom;
   }
-}
-
-/* Variable serif optical sizing */
-.serif-display {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 144;
-}
-
-.serif-text {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 14;
 }

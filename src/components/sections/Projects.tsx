@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { projects, type ProjectCategory } from "@/data/projects";
 import ProjectCard from "@/components/ui/ProjectCard";
@@ -28,65 +28,56 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="py-24 md:py-32 px-6 md:px-10 border-t border-ink/20"
+      className="py-20 md:py-28 px-4 md:px-6 border-t border-line"
     >
       <div className="max-w-[1400px] mx-auto">
-        {/* Section header */}
-        <div className="grid grid-cols-12 gap-x-6 mb-12 md:mb-20">
-          <div className="col-span-12 md:col-span-2">
-            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
-              03 / Selected work
-            </div>
-          </div>
+        {/* Section heading */}
+        <div className="flex flex-wrap items-center gap-3 mb-10">
+          <span className="text-term-green text-sm">▸</span>
+          <span className="text-xs text-fg-muted">03 / {t("heading").toLowerCase()}</span>
+          <span className="text-fg-subtle">—</span>
+          <span className="text-fg-dim text-sm">{t("subtitle").toLowerCase()}</span>
+          <div className="flex-1 h-px bg-line ml-2" />
+          <span className="text-xs text-fg-muted">
+            {filteredProjects.length} entries
+          </span>
+        </div>
 
-          <div className="col-span-12 md:col-span-10">
-            <h2
-              className="serif-display text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95] tracking-tighter text-ink text-balance"
-              style={{ fontVariationSettings: '"opsz" 144' }}
+        {/* Demo notice */}
+        <div className="mb-6 px-4 py-2.5 border-l-2 border-term-yellow bg-term-yellow/5 text-xs text-fg-dim">
+          <span className="text-term-yellow">⚠</span> {t("demo_notice")}
+        </div>
+
+        {/* Filter */}
+        <div className="mb-2 flex flex-wrap items-center text-xs">
+          <span className="text-fg-muted mr-2">filter:</span>
+          {filters.map((f, i) => (
+            <button
+              key={f.key}
+              onClick={() => setActiveFilter(f.key as FilterKey)}
+              className={`px-2 py-1 transition-colors ${
+                activeFilter === f.key
+                  ? "text-term-green"
+                  : "text-fg-muted hover:text-fg"
+              }`}
             >
-              {t("heading")}
-              <span className="serif-text italic text-ink-muted">
-                {" "}
-                — {t("subtitle").toLowerCase()}.
-              </span>
-            </h2>
-
-            <p className="mt-8 max-w-xl font-mono text-xs uppercase tracking-[0.16em] text-ink-muted">
-              ※ {t("demo_notice")}
-            </p>
-          </div>
+              {i > 0 && <span className="text-fg-subtle pr-1">|</span>}
+              <span>{f.label.toLowerCase()}</span>
+            </button>
+          ))}
         </div>
 
-        {/* Filter tabs */}
-        <div className="border-y border-ink/30 mb-12">
-          <div className="flex flex-wrap items-center">
-            {filters.map((f) => (
-              <button
-                key={f.key}
-                onClick={() => setActiveFilter(f.key as FilterKey)}
-                className={`relative px-5 md:px-8 py-4 font-mono text-[11px] uppercase tracking-[0.18em] transition-colors ${
-                  activeFilter === f.key
-                    ? "text-accent"
-                    : "text-ink-muted hover:text-ink"
-                }`}
-              >
-                {activeFilter === f.key && (
-                  <motion.div
-                    layoutId="filter-line"
-                    className="absolute inset-x-0 -bottom-px h-px bg-accent"
-                  />
-                )}
-                {f.label}
-              </button>
-            ))}
-            <div className="ml-auto px-5 md:px-8 py-4 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted">
-              {filteredProjects.length} entries
-            </div>
+        {/* Project list - terminal-style file table */}
+        <div className="border border-line">
+          {/* Table header */}
+          <div className="hidden md:grid grid-cols-12 gap-x-3 px-4 py-2 bg-surface border-b border-line text-[10px] uppercase tracking-wider text-fg-muted">
+            <span className="col-span-1">№</span>
+            <span className="col-span-3">name</span>
+            <span className="col-span-5">description</span>
+            <span className="col-span-2">stack</span>
+            <span className="col-span-1 text-right">→</span>
           </div>
-        </div>
 
-        {/* Project list — editorial spreads */}
-        <div className="flex flex-col">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, i) => (
               <ProjectCard
@@ -101,6 +92,11 @@ export default function Projects() {
               />
             ))}
           </AnimatePresence>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-3 text-[10px] text-fg-muted">
+          <span className="text-term-green">$</span> end of list · {filteredProjects.length} of {projects.length}
         </div>
       </div>
     </section>

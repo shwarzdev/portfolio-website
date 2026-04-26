@@ -5,11 +5,11 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-ink text-cream-100 border-t border-cream-100/10">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-cream-100/60">
+    <footer className="border-t border-line bg-surface">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-5">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-fg-muted">
           <p>
-            © {year} · {t("copyright")}
+            <span className="text-term-green">$</span> echo &quot;{year} · {t("copyright")}&quot;
           </p>
           <p>{t("built_with")}</p>
         </div>

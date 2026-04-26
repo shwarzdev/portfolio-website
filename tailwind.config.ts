@@ -9,28 +9,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: {
-          50: "#faf8f3",
-          100: "#f4f1ea",
-          200: "#ebe5d6",
-          300: "#dcd2bc",
-          400: "#c5b89a",
+        bg: "#0d0d0d",
+        surface: "#141414",
+        line: "#1f1f1f",
+        line2: "#2a2a2a",
+        fg: {
+          DEFAULT: "#ededed",
+          dim: "#9b9b9b",
+          muted: "#5e5e5e",
+          subtle: "#3a3a3a",
         },
-        ink: {
-          DEFAULT: "#0a0a0a",
-          soft: "#1a1a1a",
-          muted: "#6b6258",
-        },
-        accent: {
-          DEFAULT: "#c2410c",
-          dark: "#9a3412",
-          light: "#ea580c",
+        term: {
+          green: "#7cf08e",
+          cyan: "#7ad8e6",
+          yellow: "#f0c674",
+          red: "#ff6b6b",
+          purple: "#c5a3ff",
+          blue: "#82aaff",
+          orange: "#ff8c42",
         },
       },
       fontFamily: {
-        serif: ["var(--font-fraunces)", "Georgia", "serif"],
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "Menlo", "monospace"],
+        mono: ["var(--font-mono)", "Menlo", "Consolas", "monospace"],
       },
       letterSpacing: {
         tightest: "-0.04em",

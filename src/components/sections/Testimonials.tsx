@@ -9,128 +9,83 @@ interface Testimonial {
   roleKey: string;
   textKey: string;
   date: string;
+  hash: string;
 }
 
 const testimonials: Testimonial[] = [
-  {
-    nameKey: "t1_name",
-    roleKey: "t1_role",
-    textKey: "t1_text",
-    date: "2026-03-15",
-  },
-  {
-    nameKey: "t2_name",
-    roleKey: "t2_role",
-    textKey: "t2_text",
-    date: "2026-02-28",
-  },
-  {
-    nameKey: "t3_name",
-    roleKey: "t3_role",
-    textKey: "t3_text",
-    date: "2026-01-10",
-  },
-  {
-    nameKey: "t4_name",
-    roleKey: "t4_role",
-    textKey: "t4_text",
-    date: "2025-12-05",
-  },
+  { nameKey: "t1_name", roleKey: "t1_role", textKey: "t1_text", date: "2026-03-15", hash: "a3f9c21" },
+  { nameKey: "t2_name", roleKey: "t2_role", textKey: "t2_text", date: "2026-02-28", hash: "c84e7b1" },
+  { nameKey: "t3_name", roleKey: "t3_role", textKey: "t3_text", date: "2026-01-10", hash: "f51d908" },
+  { nameKey: "t4_name", roleKey: "t4_role", textKey: "t4_text", date: "2025-12-05", hash: "92b6e34" },
 ];
 
-function formatDate(dateStr: string, locale: string): string {
+function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return date
-    .toLocaleDateString(locale === "ru" ? "ru-RU" : "en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    })
-    .toUpperCase();
+  return date.toISOString().slice(0, 10);
 }
 
 export default function Testimonials() {
   const t = useTranslations("testimonials");
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const locale = t("heading") === "Отзывы" ? "ru" : "en";
 
   return (
     <section
       id="testimonials"
-      className="py-24 md:py-32 px-6 md:px-10 border-t border-ink/20"
+      className="py-20 md:py-28 px-4 md:px-6 border-t border-line"
     >
       <div ref={ref} className="max-w-[1400px] mx-auto">
-        {/* Section header */}
-        <div className="grid grid-cols-12 gap-x-6 mb-16 md:mb-24">
-          <div className="col-span-12 md:col-span-2">
-            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
-              05 / Letters
-            </div>
-          </div>
-
-          <div className="col-span-12 md:col-span-10">
-            <h2
-              className="serif-display text-5xl md:text-7xl font-light leading-[0.95] tracking-tighter text-ink"
-              style={{ fontVariationSettings: '"opsz" 144' }}
-            >
-              {t("heading")}
-            </h2>
-            <p className="serif-text italic text-xl md:text-2xl text-ink-muted mt-4">
-              {t("subtitle")}.
-            </p>
-          </div>
+        {/* Section heading */}
+        <div className="flex flex-wrap items-center gap-3 mb-10">
+          <span className="text-term-green text-sm">▸</span>
+          <span className="text-xs text-fg-muted">05 / git log --reviews</span>
+          <span className="text-fg-subtle">—</span>
+          <span className="text-fg-dim text-sm">{t("subtitle").toLowerCase()}</span>
+          <div className="flex-1 h-px bg-line ml-2" />
+          <span className="text-xs text-fg-muted">{testimonials.length} entries</span>
         </div>
 
-        {/* Pull quotes */}
-        <div className="space-y-20 md:space-y-24">
-          {testimonials.map((testimonial, i) => {
-            const isReversed = i % 2 === 1;
-            return (
-              <motion.div
-                key={testimonial.nameKey}
-                initial={{ opacity: 0, y: 24 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: i * 0.08 }}
-                className="grid grid-cols-12 gap-x-6 gap-y-6"
-              >
-                {/* Number */}
-                <div className={`col-span-12 md:col-span-2 ${isReversed ? "md:col-start-11 md:row-start-1 md:text-right" : ""}`}>
-                  <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted">
-                    № {String(i + 1).padStart(2, "0")}
-                  </div>
+        {/* Git log style */}
+        <div className="space-y-0">
+          {testimonials.map((tm, i) => (
+            <motion.div
+              key={tm.nameKey}
+              initial={{ opacity: 0, x: -8 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.4, delay: i * 0.06 }}
+              className="relative pl-7 md:pl-10 pb-8 last:pb-0"
+            >
+              {/* Tree line */}
+              <div className="absolute left-0 top-0 bottom-0 flex flex-col items-center">
+                <div className="w-3 h-3 rounded-full bg-term-green ring-4 ring-bg z-10 mt-1.5" />
+                {i < testimonials.length - 1 && (
+                  <div className="flex-1 w-px bg-line mt-1" />
+                )}
+              </div>
+
+              {/* Commit-style card */}
+              <div className="code-block p-5">
+                {/* Hash + date */}
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs mb-3 pb-3 border-b border-line">
+                  <span className="text-term-yellow">commit {tm.hash}</span>
+                  <span className="text-fg-muted hidden sm:inline">·</span>
+                  <span className="text-fg-muted">Date: {formatDate(tm.date)}</span>
                 </div>
 
-                {/* Quote */}
-                <blockquote
-                  className={`col-span-12 md:col-span-9 ${
-                    isReversed ? "md:col-start-2 md:row-start-1" : "md:col-start-3"
-                  }`}
-                >
-                  <p
-                    className="serif-display text-3xl md:text-5xl lg:text-6xl font-light leading-[1.05] tracking-tighter text-ink text-balance"
-                    style={{ fontVariationSettings: '"opsz" 96' }}
-                  >
-                    <span className="text-accent">“</span>
-                    {t(testimonial.textKey)}
-                    <span className="text-accent">”</span>
-                  </p>
+                {/* Author */}
+                <div className="text-xs text-fg-muted mb-3">
+                  <span>Author: </span>
+                  <span className="text-term-cyan">{t(tm.nameKey)}</span>
+                  <span className="text-fg-muted"> &lt;{t(tm.roleKey)}&gt;</span>
+                </div>
 
-                  <footer className="mt-8 flex flex-wrap items-baseline gap-x-4 gap-y-1 pt-4 border-t border-ink/15">
-                    <cite className="serif-text not-italic text-lg text-ink">
-                      {t(testimonial.nameKey)}
-                    </cite>
-                    <span className="serif-text italic text-base text-ink-muted">
-                      {t(testimonial.roleKey)}
-                    </span>
-                    <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">
-                      {formatDate(testimonial.date, locale)}
-                    </span>
-                  </footer>
-                </blockquote>
-              </motion.div>
-            );
-          })}
+                {/* Message */}
+                <p className="text-sm md:text-base text-fg leading-relaxed">
+                  {t(tm.textKey)}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
