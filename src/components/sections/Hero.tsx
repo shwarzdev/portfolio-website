@@ -2,80 +2,123 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import Button from "@/components/ui/Button";
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
-};
 
 export default function Hero() {
   const t = useTranslations("hero");
+  const today = new Date()
+    .toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    })
+    .toUpperCase();
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Background orbs */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-600/15 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl animate-float [animation-delay:2s]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-3xl" />
-      </div>
-
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="max-w-3xl mx-auto px-4 text-center"
-      >
-        <motion.p
-          variants={item}
-          className="text-zinc-400 text-lg mb-2 font-mono"
-        >
-          {t("greeting")}
-        </motion.p>
-
-        <motion.h1
-          variants={item}
-          className="text-5xl md:text-7xl font-bold text-gradient mb-4"
-        >
-          {t("name")}
-        </motion.h1>
-
-        <motion.p
-          variants={item}
-          className="text-xl md:text-2xl text-zinc-300 font-medium mb-6"
-        >
-          {t("title")}
-        </motion.p>
-
-        <motion.p
-          variants={item}
-          className="text-zinc-400 text-lg max-w-xl mx-auto mb-8 leading-relaxed"
-        >
-          {t("description")}
-        </motion.p>
-
+    <section className="relative min-h-[92vh] pt-20 pb-24 px-6 md:px-10">
+      <div className="max-w-[1400px] mx-auto">
+        {/* Top metadata bar */}
         <motion.div
-          variants={item}
-          className="flex flex-wrap items-center justify-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted border-t border-ink py-3"
         >
-          <Button href="#projects">{t("cta_projects")}</Button>
-          <Button href="#contact" variant="outline">
-            {t("cta_contact")}
-          </Button>
+          <span>Issue №01</span>
+          <span className="hidden sm:inline">Portfolio / 2026</span>
+          <span>{today}</span>
         </motion.div>
-      </motion.div>
+
+        {/* Main hero */}
+        <div className="grid grid-cols-12 gap-x-6 gap-y-10 mt-16 md:mt-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="col-span-12 md:col-span-2"
+          >
+            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
+              ※ The Author
+            </div>
+          </motion.div>
+
+          <div className="col-span-12 md:col-span-10">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="serif-text italic text-xl md:text-2xl text-ink-muted mb-3"
+            >
+              {t("greeting")},
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="serif-display font-light text-ink leading-[0.9] tracking-tightest text-[clamp(4rem,14vw,12rem)]"
+              style={{ fontVariationSettings: '"opsz" 144' }}
+            >
+              {t("name")}
+            </motion.h1>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="mt-8 grid grid-cols-12 gap-x-6"
+            >
+              <div className="col-span-12 md:col-span-7 md:col-start-6">
+                <p className="serif-text text-xl md:text-2xl leading-snug text-ink text-balance">
+                  {t("title")}.{" "}
+                  <span className="italic text-ink-muted">
+                    {t("description")}
+                  </span>
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Bottom strip — call to actions like editorial footnotes */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-24 md:mt-32 grid grid-cols-12 gap-x-6 items-end pt-6 border-t border-ink/30"
+        >
+          <div className="col-span-12 md:col-span-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted mb-2">
+              ↳ Begin reading
+            </div>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <a
+                href="#projects"
+                className="serif-text italic text-2xl md:text-3xl text-ink hover:text-accent transition-colors underline decoration-1 underline-offset-3"
+              >
+                {t("cta_projects")}
+              </a>
+              <span className="serif-text italic text-2xl md:text-3xl text-ink-muted">
+                /
+              </span>
+              <a
+                href="#contact"
+                className="serif-text italic text-2xl md:text-3xl text-ink hover:text-accent transition-colors underline decoration-1 underline-offset-3"
+              >
+                {t("cta_contact")}
+              </a>
+            </div>
+          </div>
+
+          <div className="col-span-12 md:col-span-6 md:text-right">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted mb-2">
+              ↳ Filed under
+            </div>
+            <div className="font-mono text-xs text-ink">
+              full-stack · ai · telegram · saas
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

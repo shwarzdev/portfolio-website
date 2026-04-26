@@ -11,7 +11,7 @@ export default function LocaleSwitcher() {
 
   function switchLocale(newLocale: string) {
     const segments = pathname.split("/");
-    if (routing.locales.includes(segments[1] as 'en' | 'ru')) {
+    if (routing.locales.includes(segments[1] as "en" | "ru")) {
       segments[1] = newLocale;
     } else {
       segments.splice(1, 0, newLocale);
@@ -20,19 +20,21 @@ export default function LocaleSwitcher() {
   }
 
   return (
-    <div className="flex items-center gap-1">
-      {routing.locales.map((loc) => (
-        <button
-          key={loc}
-          onClick={() => switchLocale(loc)}
-          className={`px-2 py-1 text-xs font-medium rounded transition-colors uppercase ${
-            locale === loc
-              ? "text-accent bg-accent/10"
-              : "text-zinc-500 hover:text-zinc-300"
-          }`}
-        >
-          {loc}
-        </button>
+    <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em]">
+      {routing.locales.map((loc, i) => (
+        <span key={loc} className="flex items-center gap-2">
+          {i > 0 && <span className="text-ink/20">/</span>}
+          <button
+            onClick={() => switchLocale(loc)}
+            className={`transition-colors ${
+              locale === loc
+                ? "text-accent"
+                : "text-ink-muted hover:text-ink"
+            }`}
+          >
+            {loc}
+          </button>
+        </span>
       ))}
     </div>
   );

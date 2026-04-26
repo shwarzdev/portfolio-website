@@ -11,45 +11,39 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-lg border-b border-zinc-800/50">
-      <nav className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="#" className="text-lg font-bold text-white">
-          shwarzdev
+    <header className="sticky top-0 z-50 bg-cream-100/85 backdrop-blur-md border-b border-ink/10">
+      <nav className="max-w-[1400px] mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
+        <a
+          href="#"
+          className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink hover:text-accent transition-colors"
+        >
+          shwarzdev<span className="text-ink-muted">.studio</span>
         </a>
 
-        <div className="hidden md:flex items-center gap-6">
-          {NAV_ITEMS.map((item) => (
+        <div className="hidden md:flex items-center gap-8">
+          {NAV_ITEMS.map((item, idx) => (
             <a
               key={item.key}
               href={item.href}
-              className="text-sm text-zinc-400 hover:text-white transition-colors"
+              className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted hover:text-accent transition-colors flex items-center gap-1.5"
             >
+              <span className="text-ink/30">
+                {String(idx + 1).padStart(2, "0")}
+              </span>
               {t(item.key)}
             </a>
           ))}
+          <div className="h-4 w-px bg-ink/20" />
           <LocaleSwitcher />
         </div>
 
         <button
-          onClick={() => setMobileOpen((prev) => !prev)}
-          className="md:hidden text-zinc-400 hover:text-white p-2"
+          onClick={() => setMobileOpen((p) => !p)}
+          className="md:hidden text-ink p-2"
           aria-label="Toggle menu"
         >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            {mobileOpen ? (
-              <path d="M18 6L6 18M6 6l12 12" />
-            ) : (
-              <path d="M3 12h18M3 6h18M3 18h18" />
-            )}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            {mobileOpen ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M3 12h18M3 6h18M3 18h18" />}
           </svg>
         </button>
       </nav>
@@ -60,20 +54,23 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-zinc-950/95 border-b border-zinc-800/50"
+            className="md:hidden overflow-hidden bg-cream-100 border-b border-ink/10"
           >
-            <div className="flex flex-col gap-4 px-4 py-6">
-              {NAV_ITEMS.map((item) => (
+            <div className="flex flex-col gap-1 px-6 py-6">
+              {NAV_ITEMS.map((item, idx) => (
                 <a
                   key={item.key}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm text-zinc-400 hover:text-white transition-colors"
+                  className="font-mono text-xs uppercase tracking-[0.16em] text-ink py-2 flex items-center gap-3"
                 >
+                  <span className="text-ink/30">{String(idx + 1).padStart(2, "0")}</span>
                   {t(item.key)}
                 </a>
               ))}
-              <LocaleSwitcher />
+              <div className="pt-3 mt-2 border-t border-ink/10">
+                <LocaleSwitcher />
+              </div>
             </div>
           </motion.div>
         )}

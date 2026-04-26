@@ -6,6 +6,7 @@ import type { Project } from "@/data/projects";
 
 interface ProjectCardProps {
   project: Project;
+  index: number;
   title: string;
   description: string;
   privateLabel: string;
@@ -15,6 +16,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({
   project,
+  index,
   title,
   description,
   privateLabel,
@@ -25,131 +27,128 @@ export default function ProjectCard({
   const hasImage = Boolean(project.image) && !imgFailed;
   const hasLive = Boolean(project.live);
   const hasGithub = Boolean(project.github);
-  const sourceLabel = githubLabel;
-  const viewCodeLabel = githubLabel;
+  const isReversed = index % 2 === 1;
+
+  const categoryLabel = project.category.toUpperCase();
 
   return (
-    <motion.div
+    <motion.article
       layout
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.3 }}
-      className={`group relative rounded-xl border border-zinc-800 bg-zinc-900/50 overflow-hidden hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/10 transition-all duration-300 ${
-        project.isFeatured ? "md:col-span-2" : ""
-      }`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.4 }}
+      className="group border-t border-ink/20 py-10 md:py-14 first:border-t-0 first:pt-2"
     >
-      {hasImage && (
-        <div className="h-48 relative overflow-hidden">
-          {hasLive ? (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block h-full w-full cursor-pointer"
-              aria-label={`${liveLabel}: ${title}`}
+      <div className={`grid grid-cols-12 gap-x-6 gap-y-6 ${isReversed ? "md:[direction:rtl]" : ""}`}>
+        {/* Number + meta */}
+        <div className="col-span-12 md:col-span-2 md:[direction:ltr]">
+          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted mb-2">
+            № {String(index + 1).padStart(2, "0")}
+          </div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
+            {categoryLabel}
+          </div>
+          {project.isPrivate && (
+            <div className="mt-3 inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted border border-ink/30 px-2 py-1">
+              {privateLabel}
+            </div>
+          )}
+        </div>
+
+        {/* Image */}
+        {hasImage && (
+          <div className="col-span-12 md:col-span-5 md:[direction:ltr]">
+            {hasLive ? (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block relative overflow-hidden border border-ink/15 bg-cream-200 group/img"
+                aria-label={`${liveLabel}: ${title}`}
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={project.image}
+                    alt={title}
+                    className="w-full h-full object-cover object-top group-hover/img:scale-[1.03] transition-transform duration-700"
+                    onError={() => setImgFailed(true)}
+                  />
+                </div>
+              </a>
+            ) : (
+              <div className="relative overflow-hidden border border-ink/15 bg-cream-200">
+                <div className="aspect-[4/3] overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={project.image}
+                    alt={title}
+                    className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-700"
+                    onError={() => setImgFailed(true)}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Text content */}
+        <div
+          className={`col-span-12 ${
+            hasImage ? "md:col-span-5" : "md:col-span-10"
+          } md:[direction:ltr] flex flex-col justify-between`}
+        >
+          <div>
+            <h3
+              className="serif-display text-3xl md:text-4xl lg:text-5xl font-light leading-[1.05] tracking-tighter text-ink mb-4 text-balance"
+              style={{ fontVariationSettings: '"opsz" 96' }}
             >
-              <img
-                src={project.image}
-                alt={title}
-                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                onError={() => setImgFailed(true)}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-zinc-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs font-medium shadow-lg shadow-violet-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span>{liveLabel}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              {title}
+            </h3>
+
+            <p className="serif-text text-base md:text-lg text-ink/80 leading-relaxed max-w-prose mb-6 text-balance">
+              {description}
+            </p>
+
+            <div className="flex flex-wrap gap-x-4 gap-y-1.5 mb-8 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted">
+              {project.techTags.map((tag, i) => (
+                <span key={tag} className="flex items-center gap-2">
+                  {i > 0 && <span className="text-ink/20">·</span>}
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-4 border-t border-ink/10">
+            {hasLive && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="serif-text italic text-lg md:text-xl text-ink hover:text-accent transition-colors underline decoration-1 underline-offset-3 inline-flex items-center gap-2"
+              >
+                {liveLabel}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d="M7 17L17 7" />
                   <path d="M7 7h10v10" />
                 </svg>
-              </div>
-            </a>
-          ) : (
-            <>
-              <img
-                src={project.image}
-                alt={title}
-                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                onError={() => setImgFailed(true)}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </>
-          )}
-        </div>
-      )}
-
-      <div className="p-5">
-        <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-        <p className="text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-3">
-          {description}
-        </p>
-
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.techTags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-0.5 text-xs rounded-full bg-zinc-800 text-zinc-400 border border-zinc-700/50"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2 flex-wrap">
-          {project.isPrivate && !hasLive && !hasGithub && (
-            <span className="px-3 py-1.5 text-xs rounded-lg bg-zinc-800 text-zinc-500 border border-zinc-700/50">
-              {privateLabel}
-            </span>
-          )}
-
-          {hasLive && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-violet-500/30 hover:scale-[1.03] transition-all"
-            >
-              <span>{liveLabel}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M7 17L17 7" />
-                <path d="M7 7h10v10" />
-              </svg>
-            </a>
-          )}
-
-          {hasLive && hasGithub && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 text-xs rounded-lg border border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-white hover:bg-zinc-800/60 transition-colors"
-            >
-              {sourceLabel}
-            </a>
-          )}
-
-          {!hasLive && hasGithub && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border border-zinc-600 text-zinc-200 hover:border-violet-500/60 hover:text-white hover:bg-zinc-800 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 .5C5.65.5.5 5.65.5 12.02c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.28-.01-1.01-.02-1.99-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a10.98 10.98 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.12 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14 0 1.54-.02 2.79-.02 3.17 0 .31.21.67.8.56 4.56-1.53 7.85-5.84 7.85-10.93C23.5 5.65 18.35.5 12 .5z" />
-              </svg>
-              <span>{viewCodeLabel}</span>
-            </a>
-          )}
-
-          {project.isPrivate && (hasLive || hasGithub) && (
-            <span className="px-3 py-1.5 text-xs rounded-lg bg-zinc-800/70 text-zinc-500 border border-zinc-700/50">
-              {privateLabel}
-            </span>
-          )}
+              </a>
+            )}
+            {hasGithub && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted hover:text-ink transition-colors inline-flex items-center gap-2"
+              >
+                ↳ {githubLabel}
+              </a>
+            )}
+          </div>
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
